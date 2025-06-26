@@ -22,11 +22,12 @@ def rebalance():
     balance = exchange.fetch_balance()
     btc = balance['total'].get('BTC', 0)
     usdt = balance['total'].get('USDT', 0)
-print("🔍 Проверка: BTC =", btc, "USDT =", usdt, "Цена =", price)
+
+    print("🔍 Проверка: BTC =", btc, "USDT =", usdt, "Цена =", price)
+
     btc_value = btc * price
     total_value = btc_value + usdt
     target_value = total_value / 2
-
     delta = abs(btc_value - target_value) / total_value
 
     if delta < threshold:
@@ -36,15 +37,15 @@ print("🔍 Проверка: BTC =", btc, "USDT =", usdt, "Цена =", price)
     if btc_value > target_value:
         amount_to_sell = (btc_value - target_value) / price
         order = exchange.create_market_sell_order(symbol, round(amount_to_sell, 6))
-        print("🔻 Продали BTC:", order)
+        print("📉 Продали BTC:", order)
     else:
         amount_to_buy = (target_value - btc_value) / price
         order = exchange.create_market_buy_order(symbol, round(amount_to_buy, 6))
-        print("🔼 Купили BTC:", order)
+        print("📈 Купили BTC:", order)
 
 while True:
     try:
         rebalance()
     except Exception as e:
         print("❌ Ошибка:", e)
-    time.sleep(300)
+    time.sleep(300)  # Проверка раз в 5 минут
