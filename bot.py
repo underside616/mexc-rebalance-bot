@@ -53,4 +53,4 @@ while True:
         rebalance()
     except Exception as e:
         print("❌ Ошибка:", e)
-    time.sleep(300)  # каждый 300 секунд 
+    time.sleep(300)  # 5 минут
