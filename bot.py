@@ -22,7 +22,7 @@ def rebalance():
     balance = exchange.fetch_balance()
     btc = balance['total'].get('BTC', 0)
     usdt = balance['total'].get('USDT', 0)
-
+print("🔍 Проверка: BTC =", btc, "USDT =", usdt, "Цена =", price)
     btc_value = btc * price
     total_value = btc_value + usdt
     target_value = total_value / 2
